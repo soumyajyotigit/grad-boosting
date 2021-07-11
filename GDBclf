@@ -28,6 +28,11 @@ criterion = st.sidebar.selectbox(
     'Criterion',
     ('friedman_mse', 'mse', 'mae')
 )
+loss = st.sidebar.selectbox(
+    'Loss',
+    ('deviance', 'exponential')
+)
+
 
 max_depth = int(st.sidebar.number_input('Max Depth'))
 
@@ -58,7 +63,7 @@ if st.sidebar.button('Run Algorithm'):
     if max_leaf_nodes == 0:
         max_leaf_nodes = None
 
-    clf = GradientBoostingClassifier(criterion=criterion,max_depth=max_depth,random_state=42,min_samples_split=min_samples_split,min_samples_leaf=min_samples_leaf,max_features=max_features,max_leaf_nodes=max_leaf_nodes,min_impurity_decrease=min_impurity_decrease)
+    clf = GradientBoostingClassifier(criterion=criterion,loss=loss,max_depth=max_depth,random_state=42,min_samples_split=min_samples_split,min_samples_leaf=min_samples_leaf,max_features=max_features,max_leaf_nodes=max_leaf_nodes,min_impurity_decrease=min_impurity_decrease)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
 
